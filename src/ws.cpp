@@ -309,10 +309,10 @@ void Workspace::allocate(const string name, const bool extensionflag, const int 
             tgid = pws->pw_gid;
         }
   
-        //raise_cap(CAP_CHOWN);
-        //if(prefix.length()>0) {  // in case we have a prefix, we change owner of that one
-        //    chown(wsdir_nopostfix.c_str(), tuid, tgid);
-        //}
+        raise_cap(CAP_CHOWN);
+        if(prefix.length()>0) {  // in case we have a prefix, we change owner of that one
+            chown(wsdir_nopostfix.c_str(), tuid, tgid);
+        }
 
         if(chown(wsdir.c_str(), tuid, tgid)) {
             lower_cap(CAP_CHOWN, db_uid);
@@ -335,7 +335,11 @@ void Workspace::allocate(const string name, const bool extensionflag, const int 
             exit(-1);
         }
         lower_cap(CAP_DAC_OVERRIDE, db_uid);
-
+        
+        if(prefix.length()>0) {  // in case we have a prefix, we change owner of that one back
+            chown(wsdir_nopostfix.c_str(), 11, 4);
+        }
+	
         extension = maxextensions;
         expiration = time(NULL)+duration*24*3600;
         string primarygroup;
