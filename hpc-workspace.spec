@@ -6,7 +6,7 @@ Summary:A workspace is a directory created on behalf of a user, associated with 
 Group:  System
 License:Proprietary
 URL:    https://github.com/holgerBerger/hpc-workspace
-Source0: https://github.com/mstud/hpc-workspace/archive/master.zip
+Source0: https://github.com/casio888/hpc-workspace/archive/master.zip
 
 BuildRequires:  yaml-cpp-devel python2-pyyaml libcap-devel ncurses-devel cmake boost-devel lua-devel lua
 Requires:python2-pyyaml lua
